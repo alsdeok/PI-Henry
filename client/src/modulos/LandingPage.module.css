@@ -1,0 +1,22 @@
+.boton {
+    
+    margin-top: 10%;
+    margin-left: 30%;
+    width: 20%;
+    height: 20%;
+    font-size: 300%;
+    border-radius: 5px;
+    border-color: #073655;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #0f6caa inset, 0 0 0 0 #2894db;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+  }
+  .boton:hover {
+    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+    color: #3498db;
+  }
+h1{
+
+  text-align: center;
+}
