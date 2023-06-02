@@ -45,7 +45,7 @@ const { Pokemon, Typepoke } = sequelize.models;
 
 // para poner el id a partir de 100000 en mi db
 Pokemon.beforeCreate(async(pokemon)=>{
-   let lastAtributte = await Pokemon.max("id");
+   let lastAtributte = await Pokemon.max("id"); // .max necesita del modelo y desde el mismo modelo no puedo llamarla
    if(lastAtributte){
       pokemon.id = lastAtributte + 1;
    }else{

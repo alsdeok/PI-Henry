@@ -5,6 +5,7 @@ const router = Router();
 
 router.post("/pokemons", (req,res) =>{
     const pokemon = req.body;
+    console.log(req.body)
     createPoke(pokemon,req,res)
 })
 

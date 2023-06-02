@@ -15,9 +15,7 @@ module.exports = (sequelize) => {
     },
     image: {
       type: DataTypes.STRING,
-      allowNull: false,
-      validate:{isUrl: true},
-      defaultValue: "https://c.wallhere.com/photos/65/03/Pok_mon_tile_cartoon_pattern-1558651.jpg!d"
+      allowNull: true,
     },
     hp: {
       type: DataTypes.INTEGER,
@@ -46,7 +44,14 @@ module.exports = (sequelize) => {
     }
 
   },{
+    hooks:{
+      beforeCreate:(pokemon)=>{
+        if(pokemon.image === ""){
+          pokemon.image = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/25.png"
+        }
+      }
 
+    },
     timestamps: false,
  }  )
 };
