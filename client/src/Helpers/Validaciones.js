@@ -16,14 +16,13 @@ export default (state) =>{
             errores.image = "Tiene que ser un archivo .png"
             isError= true;
         }
-    }else if(!state.image){errores.image = "Debe tener una imagen";isError= true;}
+    }
 
-    if(state.hp > 100 || state.hp <= 0 ){errores.hp = "Hp tiene que ser mayor a 0 y menor a 100";isError= true;}
+    if(state.hp > 100 || state.hp <= 0 ){errores.hp = "Tiene que ser mayor a 0 y menor a 100";isError= true;}
 
-    if(state.attack > 100 || state.attack <= 0 ){ errores.attack = "Attack tiene que ser mayor a 0 y menor a 100";isError= true;}
+    if(state.attack > 100 || state.attack <= 0 ){ errores.attack = "Tiene que ser mayor a 0 y menor a 100";isError= true;}
     
-    if(state.defense > 100 || state.defense <= 0 ){errores.defense = "Defense tiene que ser mayor a 0 y menor a 100";isError= true;}
-
+    if(state.defense > 100 || state.defense <= 0 ){errores.defense = "Tiene que ser mayor a 0 y menor a 100";isError= true;}
    
     return isError?errores:null
 };

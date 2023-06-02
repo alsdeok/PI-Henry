@@ -1,0 +1,11 @@
+.divPadre{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+.Pages{
+    background-color: rgb(148, 110, 66);
+    padding: 5px;
+    border-radius: 5px;
+}

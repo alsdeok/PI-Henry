@@ -5,7 +5,8 @@ export const types ={
     FILTER_TYPES: "FILTER_TYPES",
     FILTER_DB: "FILTER_DB",
     ORDER: "ORDER",
-    ALL_TYPES: "ALL_TYPES"
+    ALL_TYPES: "ALL_TYPES",
+    STATE_ORDER: "STATE_ORDER"
 
 }
 
@@ -59,5 +60,12 @@ export const allTypes = (type) =>{
     return {
         type: types.ALL_TYPES,
         payload: type
+    }
+}
+
+export const stateOrderNameAt = (type) =>{
+    return {
+        type: types.STATE_ORDER,
+        payload:type
     }
 }

@@ -1,0 +1,67 @@
+.divPadre{
+    display: flex;  
+    flex-direction: column;
+    margin-left: 0;
+    justify-items: center;
+    justify-content: start;
+    
+}
+h1{
+    text-align: center;
+    width: 100%;
+    padding-top: 0%;
+}
+.form{
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: rgb(148, 110, 66);
+    width: 30rem;
+    gap: 5px;
+    
+}
+.divImage{
+    margin-top: -150px;
+    width: 180px;
+    height: 150px;
+    border: 2px solid black;
+}
+.img{
+    width: 180px;
+    height: 150px;
+}
+.error{
+    color: red;
+}
+.tiposCreados{
+    justify-content: center;
+    display: flex;
+    margin-top: 10px;
+    gap: 10px;
+
+}
+.botonEliminar{
+    background: transparent;
+    border: 1px solid ;
+    border-radius: 5px;
+}
+.buttonCrear{
+    margin-top: 50px;
+    margin-left: 65%;
+    width: 50%;
+    font-size: 18px;
+    border-radius: 10px;
+}
+.buttonVolver{
+    margin-top: 5px;
+    width: 10%;
+    font-size: 18px;
+    border-radius: 10px;
+}
+.buttonCrear:hover,.botonEliminar:hover ,.buttonVolver:hover{
+    cursor: pointer;
+    background-color: rgb(77, 191, 191);
+}

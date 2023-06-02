@@ -1,13 +1,14 @@
 import { useNavigate } from "react-router-dom"
 import style from "../modulos/LandingPage.module.css"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { useDispatch, useSelector} from "react-redux";
 import { charactersToShow, allTypes} from "../redux/actions";
 import axios from "axios";
 
 export default function(props){
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [loaded,setLoaded] = useState(false) 
 
     const redirect = () =>{
         navigate("/home")
@@ -18,20 +19,18 @@ export default function(props){
             dispatch(charactersToShow(data))
             const res = await axios("http://localhost:3001/types")
             dispatch(allTypes(res.data))
-            console.log("Server Loaded")
-            if(data){
-               return( <div>
-
-                </div>)
-            }
+            setLoaded(true)
         }
         apiCharacters()
         
     },[])
     return(
-        <div>
+        <div className={style.divPadre}>
             <h1>Disfruta de la magia de los Pokemones!!</h1>
-            <button className={style.boton} onClick={redirect}>Empezar</button>
+            {
+                loaded? <button className={style.boton} onClick={redirect}>Empezar</button> : <span className={style.loader}></span>
+            }
+            
         </div>
     )
 }

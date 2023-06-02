@@ -1,3 +1,4 @@
+import style from "../modulos/Card.module.css"
 import { useNavigate } from "react-router-dom";
 
 export default function Card(props){
@@ -10,13 +11,15 @@ export default function Card(props){
     } 
     
     return(
-        <div>
-            <div onClick={()=>{showDetail(id)}}>
+        <div className={style.divPadre}>
+            <h4> {name}</h4>
+            <div onClick={()=>{showDetail(id)}} className={style.divImage}>
                 <img src={image} alt={name}/>
             </div>
-            <h3>Nombre: {name}</h3>
-            <h3>Tipo: {tipos}</h3>
-            <hr />
+            <p>----------------------</p>
+            <h3>Tipo:</h3>
+            <h4>{tipos}</h4>
+
         </div>
     )
 }

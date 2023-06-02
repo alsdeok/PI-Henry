@@ -7,7 +7,8 @@ const initialState = {
     filters: [],
     filterDb: "All",
     order:"Asc",
-    allTypes:[]
+    allTypes:[],
+    stateOrder:"Name"
 }
 
 export default function reducer(state = initialState, {type,payload}){
@@ -25,7 +26,9 @@ export default function reducer(state = initialState, {type,payload}){
         case types.ORDER:
             return{...state,order: payload}    
         case types.ALL_TYPES:
-            return{...state,allTypes: payload}
+            return{...state,allTypes: payload};
+        case types.STATE_ORDER:
+            return{...state,stateOrder: payload}
         default:
             return state
     }

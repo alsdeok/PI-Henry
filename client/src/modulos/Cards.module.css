@@ -1,5 +1,7 @@
 .divPadre{
-    width: 60%;
-    height: 100%;
-    background-color: red;
+    display: grid;
+    grid-template-columns: repeat(6,1fr);
+    width: 98%;
+    gap:15px;
+    padding: 10px;
 }

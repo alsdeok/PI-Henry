@@ -1,0 +1,18 @@
+.divPadre{
+    align-items: center;
+    background-color: rgb(148, 110, 66);
+    width: 80%;
+    border-radius: 0 0 10px 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    padding: 5px;
+}
+.form{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    text-align: center;
+    justify-content: center;
+
+}

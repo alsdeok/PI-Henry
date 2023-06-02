@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import validator from "../Helpers/Validaciones"
 import axios, { AxiosError } from "axios";
+import style from "../modulos/Form.module.css"
 
 export default function Form(props) {
     const types = useSelector(state=>state.allTypes);
@@ -28,7 +29,7 @@ export default function Form(props) {
     })
     
 
-    const [type,setType] = useState("poison") 
+    const [type,setType] = useState("unknown") 
     const navigate = useNavigate();
     const redirect = () =>{
         navigate("/home")
@@ -44,6 +45,7 @@ export default function Form(props) {
         const errores = validator({ [key]: e?.target.value });
         setError(errores ? { ...error, [key]: errores[key] } : {});
       };
+
     const filterTypes = (event) => {
                 setType(event.target.value)
                 if(types?.[event.target.value]){
@@ -63,6 +65,7 @@ export default function Form(props) {
         const filteredTypess = state.types.filter(e => e !== t)
         setState((prevState) => ({ ...prevState, types: filteredTypess }))
     }
+    
     const post = async (e) => {
         try {
           setPokeCreated(false);
@@ -92,44 +95,58 @@ export default function Form(props) {
 
         }
       };
-
-    const r = Object.values(error).filter(e => e != undefined)
-    console.log(r)
+    
+      
+      
+      const r = Object.values(error).filter(e => e != undefined)
+      console.log(r)
     return (
-        <div>
-            <button onClick={redirect}>X</button>
+        <div className={style.divPadre}>
+            <button  className={style.buttonVolver} onClick={redirect}>«</button>
             <h1>Crear Pokemon</h1>
-            <img src={state.image} alt={state.name} />
-            <form onSubmit={post}>
-                {
-                    Object.entries(state).map(([key,value]) =>{ 
-                        if(key === "types"){
-                            return <div key={key}>
-                                        <label>{key.toUpperCase()}</label><select value={type} onChange={filterTypes}>
+            <div className={style.form}>
+                <div className={style.divImage}>
+                    <img className={style.img} src={state.image ? state.image : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/25.png"} alt={state.name} />
+                    <div className={style.tiposCreados}>
+                        {
+                            state.types.map(t => {
+                            return <div key={t} >
+                                    <button onClick={()=>deleteFilterTypes(t)} className={style.botonEliminar}>X</button><span>  {t}</span>
+                                    </div>})
+                        }
+                    </div>
+                </div>
+                <form onSubmit={post} >
+                    {
+                        Object.entries(state).map(([key,value]) =>{ 
+                            if(key === "types"){
+                                return <div key={key}>
+                                            <label>{key.toUpperCase()}</label>
+                                            <select value={type} onChange={filterTypes}>
+                                                {
+                                                    types.map(
+                                                        t => <option key={t} value={t} disabled={state.types.length > 1}>{t}</option>
+                                                )}
+                                            </select><label>Maximo dos tipos</label>
+                                            <br />
                                             {
-                                                types.map(
-                                                    t => <option key={t} value={t} disabled={state.types.length > 1}>{t}</option>
-                                            )}
-                                        </select><label>Maximo dos tipos</label>
-                                        {
-                                          state.types.map(t => {
-                                            return <div key={t}>
-                                                    <button onClick={()=>deleteFilterTypes(t)}>X</button><span>{t}</span>
-                                                    </div>})
-                                        }
-                                        
-                                    </div>
-                        }else{
-                       return <div key={key}>
-                            <label>{key.toUpperCase()}</label><input type="text" value={value} onChange={(e) => {handleChange(key,e);handleError(key,e)}} onBlur={(e) => handleError(key,e)} />
-                            {
-                             error[key]?<span>{error[key]}</span>:null
-                            }
-                        </div>}
-                    })          
-                }
-                <button type="submit" disabled={r.length !== 0}>Crear Pokemon</button>{pokeCreated?<span>Pokemon creado!</span>: null}
-            </form>
+                                                state.types.length === 0 ? <span className={style.error}>*Tiene que ser al menos de un tipo</span> : null
+                                            }
+                                        </div>
+                            }else{
+                            return <div key={key}>
+                                <label>{key.toUpperCase()}</label><input type="text" value={value} onChange={(e) => {handleChange(key,e);handleError(key,e)}} onBlur={(e) => handleError(key,e)} />
+                                <br/>
+                                {
+                                error[key]?<span className={style.error}>*{error[key]}</span>:null
+                                }
+                            </div>}
+                        })          
+                    }
+                    <button className={style.buttonCrear} type="submit" disabled={r.length > 0 || (state.types.length === 0)}>Crear Pokemon</button>{pokeCreated?<span>Pokemon creado!</span>: null}
+                </form>
+            </div>
+            
         </div>
     )
 }

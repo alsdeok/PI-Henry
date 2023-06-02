@@ -1,22 +1,44 @@
+
+
 .boton {
-    
-    margin-top: 10%;
-    margin-left: 30%;
+    margin-top: 2%;
+    margin-left: 10%;
     width: 20%;
     height: 20%;
     font-size: 300%;
     border-radius: 5px;
     border-color: #073655;
-    color: #fff;
-    box-shadow: 0 0 40px 40px #0f6caa inset, 0 0 0 0 #2894db;
+    color: #000000;
+    box-shadow: 0 0 40px 30px #0f6caa ;
     -webkit-transition: all 150ms ease-in-out;
     transition: all 150ms ease-in-out;
   }
   .boton:hover {
-    box-shadow: 0 0 10px 0 #3498db inset, 0 0 10px 4px #3498db;
+    box-shadow: 0 0 10px 0 #3498db ;
     color: #3498db;
   }
 h1{
+  padding-top: 10%;
 
-  text-align: center;
 }
+
+.loader {
+
+  margin-left: 16%;
+  width: 100px;
+  height: 100px;
+  border: 5px solid #000000;
+  border-radius: 50%;
+  border-bottom-color: transparent;
+  display: inline-block;
+  animation: rotation 2s linear infinite;
+  }
+
+  @keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 

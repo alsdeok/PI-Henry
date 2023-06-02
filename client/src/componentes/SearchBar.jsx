@@ -1,7 +1,7 @@
 import {  useState, useEffect } from "react";
 import style from "../modulos/SearchBar.module.css";
 import {useSelector,useDispatch} from "react-redux";
-import {charactersToShow, pageState,filterDB,filterTypes,filterorder,setPageCant} from "../redux/actions";
+import {charactersToShow, pageState,filterDB,filterTypes,filterorder,setPageCant,stateOrderNameAt} from "../redux/actions";
 import axios from "axios";
 import {  useNavigate } from "react-router-dom";
 
@@ -12,13 +12,14 @@ export default function SearchBar(props){
     const filterDb = useSelector(state=>state.filterDb);
     const order = useSelector(state=>state.order);
     const page = useSelector(state=>state.pageState);
+    const stateOrderNameAttack = useSelector(state=>state.stateOrder);
     const [name,setName] = useState("");
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const tipos = filters.length === 0 ? "" : filters.join(",");
     useEffect(() =>{
-        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=${page}`)
+        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=${page}&attack=${stateOrderNameAttack}`)
         .then(({data})=>{dispatch(charactersToShow(data[0]));dispatch(setPageCant(data[1]))})
     }, [page])
 
@@ -49,7 +50,7 @@ export default function SearchBar(props){
         }else{
             tipos = tipo.join(",") ;
         }
-        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${dataBs}&order=${order}&page=1`).then(
+        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${dataBs}&order=${order}&page=1&attack=${stateOrderNameAttack}`).then(
             ({data})=>{dispatch(charactersToShow(data[0]));dispatch(pageState(1));dispatch(setPageCant(data[1]))}
         )
     }
@@ -58,6 +59,10 @@ export default function SearchBar(props){
         valor = event.target.value
         dispatch(filterorder(valor))
     }
+    const stateOrder = (event) =>{
+        valor = event.target.value;
+        dispatch(stateOrderNameAt(valor))
+    }
     const handleClick = (evento)=>{
         evento.preventDefault();
     }
@@ -65,9 +70,9 @@ export default function SearchBar(props){
         navigate("/create")
     }
     return(
-        <div>
+        <div className={style.divPadre}>
             <button onClick={redirect}> Crear Pokemon</button>
-            <form onSubmit={handleClick}>
+            <form onSubmit={handleClick} className={style.form}>
             <div>
                 {
                     types ?  types?.map(e => {
@@ -79,8 +84,9 @@ export default function SearchBar(props){
                     })
                         :null
                 }
-                <br/>
-                <span>Por: </span>
+
+            </div>
+            <span>Por: </span>
                 <select name="Filter" value={filterDb} onChange={select} >
                     <option value="All">All</option>
                     <option value="false">Api</option>
@@ -90,8 +96,10 @@ export default function SearchBar(props){
                     <option value="Asc">Ascendente</option>
                     <option value="Des">Descendente</option>
                 </select>
-                
-            </div>
+                <select name="NameOrAttack" value={stateOrderNameAttack} onChange={stateOrder} >
+                    <option value="Name">Nombre</option>
+                    <option value="Attack">Ataque</option>
+                </select>
             <button onClick={()=>filtrar(filters,filterDb,order)} type="submit">Filtrar</button>
             <input value={name} onChange={handleChange} onKeyDown={onKeyDown}></input>
             </form>
