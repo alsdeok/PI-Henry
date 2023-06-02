@@ -19,7 +19,6 @@ export default function Card(props){
             <p>----------------------</p>
             <h3>Tipo:</h3>
             <h4>{tipos}</h4>
-
         </div>
     )
 }

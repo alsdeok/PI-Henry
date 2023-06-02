@@ -13,19 +13,18 @@ export default function Home(props){
     const filters = useSelector(state=>state.filters);
     const filterDb = useSelector(state=>state.filterDb);
     const order = useSelector(state=>state.order);
-    const stateOrder = useSelector(state=>state.stateOrder);
+    const stateOrderNameAttack = useSelector(state=>state.stateOrder);
     const characters = useSelector(state=> state?.allPokemons);
     const pageCant = useSelector(state=>state.pageCant);
     useEffect(()=>{
   
         axios.get("http://localhost:3001/").then(()=>{console.log("dbLoaded"); 
             const tipos = filters.length === 0 ? "" : filters.join(",");
-            axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=${page}&attack=${stateOrder}`)
+            axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=${page}&attack=${stateOrderNameAttack}`)
             .then(({data})=>{dispatch(charactersToShow(data[0]));dispatch(setPageCant(data[1]))})
          })
        
     },[])
-
     const dispatch = useDispatch()
     let numPage = page;
     const previous = () =>{
@@ -42,7 +41,6 @@ export default function Home(props){
     const lastPage = () =>{
         dispatch(pageState(pageCant))
     }
-    console.log(pageCant)
     return(<div className={style.divPadre}>
         <SearchBar onSearch={onSearch} ></SearchBar>
         <div  className={style.Pages}>

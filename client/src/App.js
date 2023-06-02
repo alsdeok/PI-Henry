@@ -11,8 +11,7 @@ import {charactersToShow} from "./redux/actions";
 function App() {
   const characters = useSelector(state=> state?.allPokemons);
   const dispatch = useDispatch()
-  const onSearch = async (name)=>{
-    console.log(name)
+  const onSearch = async (name)=>{ // busqueda por nombre
     const {data} = await axios.get(`http://localhost:3001/pokemons/name?name=${name}`)
     dispatch(charactersToShow([data]))
   }

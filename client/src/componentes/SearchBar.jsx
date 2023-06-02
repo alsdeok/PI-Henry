@@ -42,26 +42,18 @@ export default function SearchBar(props){
     const select = (event)=>{
         dispatch(filterDB(event.target.value))
     }
-    const filtrar = (tipo,dataBs,order)=>{
-        let tipos;
-        if(tipo.length === 0){
-            tipos = "";
-          
-        }else{
-            tipos = tipo.join(",") ;
-        }
-        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${dataBs}&order=${order}&page=1&attack=${stateOrderNameAttack}`).then(
+    const filtrar = ()=>{
+        axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=1&attack=${stateOrderNameAttack}`).then(
             ({data})=>{dispatch(charactersToShow(data[0]));dispatch(pageState(1));dispatch(setPageCant(data[1]))}
         )
     }
-    let valor;
+   
     const orderPokes = (event) =>{
-        valor = event.target.value
-        dispatch(filterorder(valor))
+    
+        dispatch(filterorder(event.target.value))
     }
     const stateOrder = (event) =>{
-        valor = event.target.value;
-        dispatch(stateOrderNameAt(valor))
+        dispatch(stateOrderNameAt(event.target.value))
     }
     const handleClick = (evento)=>{
         evento.preventDefault();
@@ -73,35 +65,35 @@ export default function SearchBar(props){
         <div className={style.divPadre}>
             <button onClick={redirect}> Crear Pokemon</button>
             <form onSubmit={handleClick} className={style.form}>
-            <div>
-                {
-                    types ?  types?.map(e => {
-                        return(
-                        <label key={e}>
-                        <input type="checkbox" disabled={filters.length > 1 && !filters.includes(e) } id={e} onChange={checkbox}  checked={filters.includes(e)}  />
-                        {e}
-                      </label>)
-                    })
-                        :null
-                }
+                <div>
+                    {
+                        types ?  types?.map(e => {
+                            return(
+                                <label key={e}>
+                                <input type="checkbox" disabled={filters.length > 1 && !filters.includes(e) } id={e} onChange={checkbox}  checked={filters.includes(e)}  />
+                                {e}
+                                </label>)
+                        })
+                            :null
+                    }
 
-            </div>
-            <span>Por: </span>
-                <select name="Filter" value={filterDb} onChange={select} >
-                    <option value="All">All</option>
-                    <option value="false">Api</option>
-                    <option value="true">DataBase</option>
-                </select>
-                <select name="Order" value={order} onChange={orderPokes} >
-                    <option value="Asc">Ascendente</option>
-                    <option value="Des">Descendente</option>
-                </select>
-                <select name="NameOrAttack" value={stateOrderNameAttack} onChange={stateOrder} >
-                    <option value="Name">Nombre</option>
-                    <option value="Attack">Ataque</option>
-                </select>
-            <button onClick={()=>filtrar(filters,filterDb,order)} type="submit">Filtrar</button>
-            <input value={name} onChange={handleChange} onKeyDown={onKeyDown}></input>
+                </div>
+                <span>Por: </span>
+                    <select name="Filter" value={filterDb} onChange={select} >
+                        <option value="All">All</option>
+                        <option value="false">Api</option>
+                        <option value="true">DataBase</option>
+                    </select>
+                    <select name="Order" value={order} onChange={orderPokes} >
+                        <option value="Asc">Ascendente</option>
+                        <option value="Des">Descendente</option>
+                    </select>
+                    <select name="NameOrAttack" value={stateOrderNameAttack} onChange={stateOrder} >
+                        <option value="Name">Nombre</option>
+                        <option value="Attack">Ataque</option>
+                    </select>
+                <button onClick={filtrar} type="submit">Filtrar</button>
+                <input value={name} onChange={handleChange} onKeyDown={onKeyDown}></input>
             </form>
         </div>
     )

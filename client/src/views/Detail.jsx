@@ -15,7 +15,6 @@ export default  function Detail(props){
             setPokemon(data.pokemon)
         }
      })
-
     },[])
 
     const redirect = () =>{

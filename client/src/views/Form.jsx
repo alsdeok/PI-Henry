@@ -2,7 +2,7 @@ import {useNavigate} from "react-router-dom"
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import validator from "../Helpers/Validaciones"
-import axios, { AxiosError } from "axios";
+import axios from "axios";
 import style from "../modulos/Form.module.css"
 
 export default function Form(props) {
@@ -27,9 +27,6 @@ export default function Form(props) {
         types: [],     
   
     })
-    
-
-    const [type,setType] = useState("unknown") 
     const navigate = useNavigate();
     const redirect = () =>{
         navigate("/home")
@@ -37,35 +34,26 @@ export default function Form(props) {
     const handleChange = (key, e) =>{
         setState((state)=>({
             ...state,
-           [key]: e?.target.value
+            [key]: e?.target.value
         }));
         
     }
     const handleError = (key, e) => {
         const errores = validator({ [key]: e?.target.value });
         setError(errores ? { ...error, [key]: errores[key] } : {});
-      };
-
+    };
+    const [type,setType] = useState("unknown") 
     const filterTypes = (event) => {
                 setType(event.target.value)
-                if(types?.[event.target.value]){
-                    const aux = types.filter(e => e !== event.target.value)
-                    setState((stateprev)=> ({
-                        ...stateprev,
-                        types: aux
-                    }))
-                }else{
                 setState((stateprev)=> ({
                         ...stateprev,
                         types: [...stateprev.types,event.target.value]
                     }))
-                }}
-
+    }
     const deleteFilterTypes = (t) =>{
         const filteredTypess = state.types.filter(e => e !== t)
         setState((prevState) => ({ ...prevState, types: filteredTypess }))
     }
-    
     const post = async (e) => {
         try {
           setPokeCreated(false);
@@ -95,11 +83,7 @@ export default function Form(props) {
 
         }
       };
-    
-      
-      
       const r = Object.values(error).filter(e => e != undefined)
-      console.log(r)
     return (
         <div className={style.divPadre}>
             <button  className={style.buttonVolver} onClick={redirect}>«</button>
@@ -143,7 +127,7 @@ export default function Form(props) {
                             </div>}
                         })          
                     }
-                    <button className={style.buttonCrear} type="submit" disabled={r.length > 0 || (state.types.length === 0)}>Crear Pokemon</button>{pokeCreated?<span>Pokemon creado!</span>: null}
+                    <button className={style.buttonCrear} type="submit" disabled={r.length > 0 || (state.types.length === 0)}>Crear Pokemon</button>{pokeCreated?<span className={style.pokeCreated}>Pokemon creado!</span>: null}
                 </form>
             </div>
             

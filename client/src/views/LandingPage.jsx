@@ -1,11 +1,11 @@
 import { useNavigate } from "react-router-dom"
 import style from "../modulos/LandingPage.module.css"
 import { useEffect, useState } from "react"
-import { useDispatch, useSelector} from "react-redux";
+import { useDispatch} from "react-redux";
 import { charactersToShow, allTypes} from "../redux/actions";
 import axios from "axios";
 
-export default function(props){
+export default function LandingPage(props){
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [loaded,setLoaded] = useState(false) 
@@ -30,7 +30,6 @@ export default function(props){
             {
                 loaded? <button className={style.boton} onClick={redirect}>Empezar</button> : <span className={style.loader}></span>
             }
-            
         </div>
     )
 }
