@@ -8,7 +8,7 @@ const order = (query,res,pokemones) =>{
           let resultFinal =  pag(query,pokesOrdenados);
           return res.status(200).json(resultFinal);
         }else{
-          const pokesOrdenadosAtt = pokesOrdenados.sort((a,b) => b.pokemon?.attack - a.pokemon?.attack );
+          const pokesOrdenadosAtt = pokesOrdenados.sort((a,b) => a.pokemon?.attack - b.pokemon?.attack );
           let resultFinal =  pag(query,pokesOrdenadosAtt); // paginado
           return res.status(200).json(resultFinal);
         }
@@ -18,7 +18,7 @@ const order = (query,res,pokemones) =>{
         let resultFinal =  pag(query,pokesOrdenados);
         return res.status(200).json(resultFinal);
         }else{
-        const pokesOrdenadosAtt = pokesOrdenados?.sort((a,b) => a.pokemon?.attack - b.pokemon?.attack );
+        const pokesOrdenadosAtt = pokesOrdenados?.sort((a,b) => b.pokemon?.attack - a.pokemon?.attack );
         let resultFinal =  pag(query,pokesOrdenadosAtt); // paginado
         return res.status(200).json(resultFinal);
         }
