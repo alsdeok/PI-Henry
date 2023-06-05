@@ -25,9 +25,7 @@ const loadServer = async (req, res) => {
         else{
           getPokeWhitTypesDb().then((data) => {
             const pokeCreated = storeBack[0].filter(e => e?.pokemon.name === data[data.length - 1]?.pokemon.name )
-            console.log(pokeCreated)
             if(pokeCreated.length === 0){
-              console.log("hola")
             storeBack[0].push(data[data.length - 1]);}
         })
           

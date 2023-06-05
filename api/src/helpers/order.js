@@ -5,7 +5,6 @@ const order = (query,res,pokemones) =>{
     if(query.order === "Asc"){
         if(query.attack === "Name"){
           pokesOrdenados = pokemones.sort((a,b) =>  a.pokemon?.name.localeCompare(b.pokemon?.name))
-          console.log("esto es pokesOrde", pokesOrdenados)
           let resultFinal =  pag(query,pokesOrdenados);
           return res.status(200).json(resultFinal);
         }else{
