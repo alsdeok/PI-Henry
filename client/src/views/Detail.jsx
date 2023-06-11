@@ -20,11 +20,11 @@ export default  function Detail(props){
     const redirect = () =>{
       navigate("/home")
     }
-     
+
     return(
       <div className={style.divPadre}>
-        <div className={style.divHijo}>
         <button onClick={redirect} className={style.buttonVolver}>«</button>
+        <div className={style.divHijo}>
         <img src={pokemon.image} alt={pokemon.name} className={style.img} />
         <div className={style.divH1}>
           <h1>
@@ -36,7 +36,7 @@ export default  function Detail(props){
           Speed: {pokemon.speed}<br/>
           Height: {pokemon.height}<br/>
           Weight: {pokemon.weight}<br/>
-          Type: {pokemon.types}<br/>
+          Type: {pokemon.types?.join("-")}<br/>
           </h1>
         </div>
         </div>

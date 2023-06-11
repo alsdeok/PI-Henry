@@ -21,10 +21,10 @@ const getPokemonName = async (name, req, res) => {
     const { data } = await axios.get(
       `https://pokeapi.co/api/v2/pokemon/${searchName}`
     );
-    if (data) {
+    
       const poke = getStatsAndTypes(data);
       return res.status(200).json(poke);
-    }
+
   } catch (error) {
     return res.status(500).json({ message: "No se encontro el Pockemon" });
   }

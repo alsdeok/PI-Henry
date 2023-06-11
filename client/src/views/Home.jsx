@@ -8,7 +8,6 @@ import axios from "axios";
 
 
 export default function Home(props){
-    const {onSearch} = props
     const page = useSelector(state=>state.pageState);
     const filters = useSelector(state=>state.filters);
     const filterDb = useSelector(state=>state.filterDb);
@@ -42,7 +41,7 @@ export default function Home(props){
         dispatch(pageState(pageCant))
     }
     return(<div className={style.divPadre}>
-        <SearchBar onSearch={onSearch} ></SearchBar>
+        <SearchBar></SearchBar>
         <div  className={style.Pages}>
         <button onClick={firstPage} disabled={page===1}>{"<<"}</button>
         <button onClick={previous} disabled={page===1}>prev</button>
@@ -50,6 +49,6 @@ export default function Home(props){
         <button onClick={next} disabled={page >= pageCant}>next</button>
         <button onClick={lastPage} disabled={page >= pageCant}>{">>"}</button>
         </div>
-        <Cards  characters={characters} onSearch={onSearch}></Cards>
+        <Cards  characters={characters} ></Cards>
     </div>)
 }

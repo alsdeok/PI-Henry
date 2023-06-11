@@ -8,7 +8,15 @@ const getAllPokemon = (query, res) => {
       }   
      else{
       pokemones = storeBack[0].filter(e =>
-      type.every(t => e?.pokemon.types.includes(t))
+      {
+        if(e?.pokemon.types.includes(type[0])){
+          return e;
+        }
+        if(e?.pokemon.types.includes(type[1])){
+          return e;
+        }
+      }
+      // type.every(t => e?.pokemon.types.includes(t))
       )}   
     if(dataBs === "true"){
         pokemones = pokemones?.filter(e => e?.pokemon.dataBs);

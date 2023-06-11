@@ -1,7 +1,7 @@
 .divPadre{
     display: flex;  
     flex-direction: column;
-    margin-left: 0;
+    margin-left: 10px;
     justify-items: center;
     justify-content: start;
     

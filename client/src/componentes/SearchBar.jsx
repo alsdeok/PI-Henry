@@ -5,8 +5,7 @@ import {charactersToShow, pageState,filterDB,filterTypes,filterorder,setPageCant
 import axios from "axios";
 import {  useNavigate } from "react-router-dom";
 
-export default function SearchBar(props){
-    const {onSearch} = props;
+export default function SearchBar(){
     const filters = useSelector(state=>state.filters)
     const types = useSelector(state => state.allTypes)
     const filterDb = useSelector(state=>state.filterDb);
@@ -14,7 +13,6 @@ export default function SearchBar(props){
     const page = useSelector(state=>state.pageState);
     const stateOrderNameAttack = useSelector(state=>state.stateOrder);
     const [name,setName] = useState("");
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const tipos = filters.length === 0 ? "" : filters.join(",");
@@ -22,13 +20,20 @@ export default function SearchBar(props){
         axios.get(`http://localhost:3001/pokemons?type=${tipos}&dataBs=${filterDb}&order=${order}&page=${page}&attack=${stateOrderNameAttack}`)
         .then(({data})=>{dispatch(charactersToShow(data[0]));dispatch(setPageCant(data[1]))})
     }, [page])
-
+    const onSearch = async (name)=>{ // busqueda por nombre
+        try {
+          const {data} = await axios.get(`http://localhost:3001/pokemons/name?name=${name}`)
+          dispatch(charactersToShow([data]));dispatch(setPageCant(1));dispatch(pageState(1))
+        } catch (error) {
+           window.alert(error.response.data.message)
+        }
+      }
     const handleChange = (event) =>{
         setName(event.target.value);
     };
     const onKeyDown = (event) =>{
         if(event.keyCode === 13){
-            onSearch(name)
+            onSearch(name)   
         }
     }
     const checkbox =(event) =>{   
@@ -47,7 +52,6 @@ export default function SearchBar(props){
             ({data})=>{dispatch(charactersToShow(data[0]));dispatch(pageState(1));dispatch(setPageCant(data[1]))}
         )
     }
-   
     const orderPokes = (event) =>{
     
         dispatch(filterorder(event.target.value))
@@ -76,7 +80,6 @@ export default function SearchBar(props){
                         })
                             :null
                     }
-
                 </div>
                 <span>Por: </span>
                     <select name="Filter" value={filterDb} onChange={select} >

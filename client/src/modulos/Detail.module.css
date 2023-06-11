@@ -6,14 +6,15 @@
 .divHijo{
     margin-top: 10px ;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     align-items: center;
-    width: 40%;
+    width: 25%;
     border-radius: 5%;
     background-color: rgb(209, 189, 163);
 }
 .img{
-    width: 150px;
+    width: 200px;
+    float: left;
 }
 .divH1{
     font-size: 70%;
@@ -21,7 +22,7 @@
 
 .buttonVolver{
     margin-top: 5px;
-    width: 10%;
+    width: 5%;
     font-size: 18px;
     border-radius: 10px;
 }

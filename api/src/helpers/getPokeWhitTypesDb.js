@@ -19,7 +19,7 @@ const getPokeWhitTypesDb = async(param)=>{
             include: [Typepoke],
         });
         const { typepokes, ...pokemonData } = pokeDb[0].dataValues; // destructuro para separar typepokes de lo demas
-        return{pokemon:{...pokemonData,type: typepokes.map(e => e.name)}}
+        return{pokemon:{...pokemonData,types: typepokes.map(e => e.name)}}
     
     }else{
         const pokesDb = await Pokemon.findAll({

@@ -6,6 +6,10 @@
     align-items: center;
     padding: 10px;
 }
+
+.divPadre:hover{
+    background-color: rgba(209, 189, 163, 0.734);
+}
 .divImage{
    display: inline;
    height: 80px;

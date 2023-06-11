@@ -9,8 +9,8 @@ export default function Form(props) {
     const types = useSelector(state=>state.allTypes);
     const [pokeCreated, setPokeCreated] = useState(false)
     const [error,setError] = useState({
-        name: "",
-        image: "",
+        name: undefined,
+        image: undefined,
         hp: 0,
         attack: 0,
         defense: 0,
@@ -40,15 +40,17 @@ export default function Form(props) {
     }
     const handleError = (key, e) => {
         const errores = validator({ [key]: e?.target.value });
-        setError(errores ? { ...error, [key]: errores[key] } : {});
+        setError(errores ? { ...error, [key]: errores[key] } : {...error, [key]: undefined});
     };
     const [type,setType] = useState("unknown") 
     const filterTypes = (event) => {
                 setType(event.target.value)
-                setState((stateprev)=> ({
-                        ...stateprev,
-                        types: [...stateprev.types,event.target.value]
-                    }))
+                if(!state.types.includes(event.target.value)){
+                    setState((stateprev)=> ({
+                            ...stateprev,
+                            types: [...stateprev.types,event.target.value]
+                        }))
+                }
     }
     const deleteFilterTypes = (t) =>{
         const filteredTypess = state.types.filter(e => e !== t)
@@ -79,6 +81,8 @@ export default function Form(props) {
         } catch (errore) {
             if(errore.response.data.error == "El Pokemon ya existe en la DB"){
                 setError({ ...error, name : "El Pokemon ya existe en la DB" });   
+            }else{
+                setError({...error, name: errore.response.data.error})
             }
 
         }
@@ -89,12 +93,15 @@ export default function Form(props) {
             <button  className={style.buttonVolver} onClick={redirect}>«</button>
             <h1>Crear Pokemon</h1>
             <div className={style.form}>
-                <div className={style.divImage}>
+                <div>
+
+                    <div className={style.divImage}>
                     <img className={style.img} src={state.image ? state.image : "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/shiny/25.png"} alt={state.name} />
+                    </div>
                     <div className={style.tiposCreados}>
                         {
                             state.types.map(t => {
-                            return <div key={t} >
+                                return <div key={t} >
                                     <button onClick={()=>deleteFilterTypes(t)} className={style.botonEliminar}>X</button><span>  {t}</span>
                                     </div>})
                         }
